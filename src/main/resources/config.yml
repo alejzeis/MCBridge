@@ -1,0 +1,15 @@
+#MCBridge Server/Plugin config
+#---------------------------------Settings---------------------------------
+#worldName:         The world that the PE players will play in. Must exist.
+#enableBridgeChat:  Enable/Disable multi-platform chat.
+#maxPEPlayers:      The maximum amount of PE players allowed to be online.
+#allowPCCommands:   Whether to allow PE players PC commands (bukkit).
+#serverName:        The server broadcast name that shows up in LAN.
+#motd:              The message to be displayed on join.
+#---------------------------------Settings---------------------------------
+worldName: world
+enableBridgeChat: true
+maxPEPlayers: 5
+allowPCCommands: false
+serverName: MCBridge A PE-PC server bridge
+motd: Welcome to the server!

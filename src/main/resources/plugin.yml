@@ -1,0 +1,4 @@
+name: MCBridge
+main: mcbridge.PluginCore
+version: 0.1.0-SNAPSHOT
+depend: [ProtocolLib]

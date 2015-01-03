@@ -1,0 +1,8 @@
+Last Updated 12/17/14 7:45 PM
+TODO:
+	- Finish Rewrite of core networking
+		-Finish handling packets at PocketPlayer.handlePacket()
+			-Check sequence numbers
+		-Implement ACKQueue
+		-Implement NACKQueue
+	- Test Rewrite

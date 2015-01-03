@@ -1,0 +1,8 @@
+Packet ID (byte): 0xba
+X cord (int)
+Z cord (int)
+BlockId's (byte) (16*128*16)
+BlockData (half byte) (16*128*16 / 2)
+BlockLight (half byte) (16*128*16 / 2)
+Skylight (half byte) (16*128*16 / 2)
+Tile Entities (NBT?) (?)
