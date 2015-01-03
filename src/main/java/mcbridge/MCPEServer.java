@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -133,21 +134,29 @@ public class MCPEServer extends Thread {
 	}
 	
 	public void sendPacket(RakNetPacket p, InetAddress addr, int port) throws IOException{
-		byte[] buf = p.getBuffer().array();
-		DatagramPacket dp = new DatagramPacket(buf, buf.length, addr, port);
-		sock.send(dp);
+		//byte[] buf = p.getBuffer().array();
+		//DatagramPacket dp = new DatagramPacket(buf, buf.length, addr, port);
+		//sock.send(dp);
+		sendPacket(p.getBuffer().array(), addr, port);
 	}
 	
 	public void sendPacket(byte[] payload, InetAddress addr, int port) throws IOException{
+		if(payload[0] == 0x4A){
+			ByteBuffer bb = ByteBuffer.wrap(payload);
+			bb.get(new byte[8]);
+			payload = new byte[bb.remaining()];
+			bb.get(payload);
+		}
+		System.out.println("PID is: "+payload[0]);
 		DatagramPacket dp = new DatagramPacket(payload, payload.length, addr, port);
 		sock.send(dp);
+		//System.out.println("Buffer OUT: "+Arrays.toString(payload));
 	}
 	
 	
 	private synchronized void handlePacket(DatagramPacket dp){
 		//logger.info("Packet recieved!");
 		byte pid = dp.getData()[0];
-		
 		try{
 			switch(pid){
 			
@@ -180,7 +189,7 @@ public class MCPEServer extends Thread {
 				
 				sendPacket(reply2, dp.getAddress(), dp.getPort());
 				
-				PocketPlayer player = new PocketPlayer(this, nextEntityID++, cr2.mtuSize);
+				PocketPlayer player = new PocketPlayer(this, nextEntityID++, (short) cr2.mtuSize);
 				player.ip = dp.getAddress();
 				player.port = dp.getPort();
 				player.address = dp.getAddress().toString()+":"+dp.getPort();
